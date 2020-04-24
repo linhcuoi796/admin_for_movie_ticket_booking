@@ -1,0 +1,215 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+}
+
+nav.nav-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  padding-left: 300px;
+}
+
+li {
+  list-style: none;
+}
+
+.side-bar-wrapper {
+  width: 280px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  overflow: scroll;
+  background-color: #153d77;
+}
+
+.side-bar-wrapper .card {
+  border-radius: 0;
+  background-color: #153d77;
+  border: 0;
+  color: #fff;
+  border-bottom: 1px rgba(241, 241, 241, 0.3);
+  border-style: dashed;
+}
+
+.list-wrapper {
+  padding-bottom: 10px;
+}
+
+.list-wrapper .list-header {
+  padding: 10px;
+  padding-left: 30px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.list-wrapper ul.list-menu {
+  -webkit-padding-start: 0;
+          padding-inline-start: 0;
+  padding-top: 10px;
+}
+
+.list-wrapper ul.list-menu li {
+  width: 100%;
+  display: block;
+  padding: 10px;
+  padding-left: 45px;
+  padding-right: 30px;
+  cursor: pointer;
+  -webkit-transition: 0.15s ease-in;
+  transition: 0.15s ease-in;
+}
+
+.list-wrapper ul.list-menu li:hover {
+  background-color: rgba(241, 241, 241, 0.3);
+}
+
+.list-wrapper ul.list-menu li a {
+  color: #ebebeb;
+}
+
+.list-wrapper ul.list-menu li a:hover {
+  text-decoration: none;
+}
+
+.list-wrapper div div.input-group {
+  padding: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.main-wrapper {
+  padding-left: 280px;
+  padding-top: 80px;
+}
+
+.main-content table tbody tr {
+  cursor: pointer;
+}
+
+.main-content table tbody tr td p {
+  line-height: 7px;
+}
+
+.modal .modal-title {
+  color: #153d77;
+  font-weight: bold;
+}
+
+.modal #form-new-film .form-group > label, .modal #form-edit-film .form-group > label {
+  color: #153d77 !important;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.modal #form-new-film .message-error, .modal #form-edit-film .message-error {
+  background-color: #fdc5c5;
+  color: #d60a0a;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: none;
+}
+
+.modal #form-new-film .message-error ul li, .modal #form-edit-film .message-error ul li {
+  list-style: disc;
+}
+
+.modal #form-new-film #country-input, .modal #form-new-film #mde-country-input, .modal #form-edit-film #country-input, .modal #form-edit-film #mde-country-input {
+  display: none;
+}
+
+.modal #form-new-film fieldset label, .modal #form-edit-film fieldset label {
+  margin-right: 15px;
+}
+
+#trailer-modal {
+  position: fixed;
+  z-index: 10000;
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  left: 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.loader-wrapper {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.loader-wrapper .loader {
+  border: 16px solid #f3f3f3;
+  /* Light grey */
+  border-top: 16px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+          animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.loader-wrapper .loaded-successful {
+  border: 16px solid #669933;
+  background-image: url("../images/successful-icon2.png");
+  background-size: cover;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-animation: none;
+          animation: none;
+}
+
+.loader-wrapper span {
+  color: #777777;
+  font-size: 16px;
+}
+
+.bg-color1 {
+  background-color: #153d77;
+}
+
+.text-color1 {
+  color: #153d77;
+}
+/*# sourceMappingURL=style.css.map */

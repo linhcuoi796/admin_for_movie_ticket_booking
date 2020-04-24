@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    
+
+
+    <!-- Date picker -->
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Admin</title>
+</head>
+
+<body class="bg-light">
+    <div class="wrapper bg-light">
+        <!-- NAVBAR -->
+        <% include partials/header %>
+        <!-- SIDEBAR -->
+        <% include partials/sidebar %>
+        <!--    CONTENT  -->
+        <div class="main-wrapper">
+            <div class="container-fluid">
+                <h1 class="main-title text-color1" style="font-size: 25px; font-weight: bold;">Danh sách phim</h1>
+                <div class="tools-bar d-flex justify-content-end mb-5">
+                    <button class="btn btn-primary rounded-0 mr-2 modal-toggle" data-toggle="modal"
+                        data-target="#add-film-modal">
+                        + Thêm
+                    </button>
+                    <button class="btn btn-primary rounded-0 mr-2">Butotn 2</button>
+                    <button class="btn btn-primary rounded-0 mr-2">Button 3</button>
+                    <button class="btn btn-primary rounded-0">Button 4</button>
+                </div>
+                <div class="main-content">
+                    <table class="table table-light table-hover shadow">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>STT</th>
+                                <th>Poster</th>
+                                <th>Tên</th>
+                                <th>Thể loại</th>
+                                <th>Quốc gia</th>
+                                <th>Ngày khởi chiếu</th>
+                                <th>Trạng thái</th>
+                                <th>Chọn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% filmData.map((film, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td>
+                                    <img id= <%= film._id + '-poster' %> src=<%= film.poster %> alt="poster" 
+                                    style="height: 70px; width: 50px; object-fit: cover">
+                                </td>
+                                <td id= <%= film._id + '-title' %> > 
+                                  <b> <%= film.title %> </b>
+                                </td>
+                                <td id= <%= film._id + '-category' %> >
+                                    <% film.categories.map(category => { %>
+                                        <p><%= category %> </p>
+                                    <% }) %>
+                                </td>
+                                <td id= <%= film._id + '-country' %> ><%= film.country %></td>
+                                <td id= <%= film._id + '-premiere_date' %> ><%= film.premiere_date.toDateString() %></td>
+                                <td id= <%= film._id + '-status' %> >
+                                    <% if (film.status === 'Chưa chiếu') { %>
+                                        <span class="badge badge-info"><%= film.status %></span>
+                                    <% } %>
+                                    <% if (film.status === 'Đang chiếu') { %>
+                                        <span class="badge badge-success"><%= film.status %></span>
+                                        <% } %>
+                                    <% if (film.status === 'Đã chiếu') { %>
+                                        <span class="badge badge-danger"><%= film.status %></span>
+                                    <% } %>
+                                </td>
+                                <td id= <%= film._id %> >
+                                    <button class="btn btn-sm btn-primary btn-edit" type="button">Sửa</button>
+                                    <button class="btn btn-sm btn-danger btn-delete" type="button">Xóa</button>
+                                </td>
+                                <td style="display: none;" id= <%= film._id + '-description' %> >
+                                    <%= film.description %>
+                                </td>
+                                <td style="display: none;" id= <%= film._id + '-trailer' %> >
+                                    <%= film.trailer %>
+                                </td>
+                                <td style="display: none;" id= <%= film._id + '-director' %> >
+                                    <%= film.director %>
+                                </td>
+                                <td style="display: none;" id=<%= film._id + '-language' %>>
+                                    <%= film.language %>
+                                </td>
+                            </tr>
+                            <% }) %>
+
+                        </tbody>
+                        <tfoot class="tfoot-light">
+                            <tr>
+                                <th colspan="8">
+                                    <hr>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="" colspan="8">
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination d-flex justify-content-end">
+                                            <li class="page-item active" aria-current="page">
+                                                <a class="page-link" href="#">1 <span
+                                                        class="sr-only">(current)</span></a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">2</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">3</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL ADD FILM -->
+        <div id="add-film-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="form-film-modal-title"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="form-film-modal-title">Thêm phim</h5>
+                        <button class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modal-body-content">
+                        <form id="form-new-film">
+                            <div class="d-flex justify-content-center">
+                                <div style="height: 500px; width: 400px; position: relative;">
+                                    <img id="image-poster" src="https://via.placeholder.com/500x400" alt="poster"
+                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                    <label id="btn-upload-poster" class="btn btn-danger d-block btn-sm" for="poster"
+                                        style="position: absolute; bottom: 0; right: 0; margin-bottom: 0;">Thêm poster</label>
+                                    <input id="poster" class="form-control-file" type="file" name="poster" required
+                                        hidden>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Tên phim <span class="text-danger">*</span></label>
+                                <input id="title" class="form-control" type="text" name="title" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Nôi dung phim <span class="text-danger">*</span></label>
+                                <textarea id="description" class="form-control" name="description" required rows="5"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="country">Quốc gia <span class="text-danger">*</span></label>
+                                    <select id="country" class="form-control" name="country">
+                                        <option value="Mỹ">Mỹ</option>
+                                        <option value="Trung Quốc">Trung Quốc</option>
+                                        <option value="Hàn Quốc">Hàn Quốc</option>
+                                        <option value="Việt Nam">Việt Nam</option>
+                                        <option value="Nhật Bản">Nhật Bản</option>
+                                        <option value="other">Khác</option>
+                                    </select>
+                                    <input type="text" name="country-input" id="country-input" class="form-control mt-3" placeholder="Tên nước">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="premiere_date">Ngày khởi chiếu <span class="text-danger">*</span></label>
+                                    <input id="premiere_date" class="form-control" type="text" name="premiere_date" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 form-group">
+                                    <label for="director">Đạo diễn <span class="text-danger">*</span></label>
+                                    <input id="director" class="form-control" type="text" name="director" required>
+
+                                </div>
+                                <div class="col-6 form-group">
+                                    <label for="language">Ngôn ngữ <span class="text-danger">*</span></label>
+                                    <select name="language" id="language" class="form-control">
+                                        <option value="Vietsub">Vietsub</option>
+                                        <option value="Thuyết minh">Thuyết minh</option>
+                                        <option value="Vietsub & Thuyết minh">Vietsub & Thuyết minh</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" aria-required="true">
+                                <label for="category">Thể loại <span class="text-danger">*</span></label>
+                                <div>
+                                    <fieldset aria-required="true">
+                                        <% categoryData.map(category => { %>
+                                            <label>
+                                                <input type="checkbox" class="category-checkbox" name="category-checkbox" value= "<%= category.name %>" />
+                                                <%= category.name %>
+                                            </label>
+                                        <% }) %>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="trailer">Trailer <span class="text-danger">*</span>
+                                    <span class="font-italic">(Chỉ điền link youtube)</span>
+                                </label>
+                                <input id="trailer" class="form-control" type="url" name="trailer" required>
+                            </div>
+                            <div class="form-group message-error">
+                                <ul>
+                                    
+                                </ul>
+                            </div>
+                            <div class="modal-footer mt-5">
+                                <button id="btn-save-new-film" class="btn btn-primary">Thêm</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-body loader-wrapper" style="display: none;">
+                        <div class="loader mb-5"></div>
+                        <span>Đang tải lên . . .</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL VIEW FILM -->
+        <div id="edit-film-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="edit-film-modal-title"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="form-film-modal-title">Sửa thông tin phim</h5>
+                        <button class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modal-body-content">
+                        <form id="form-edit-film">
+                            <div class="d-flex justify-content-center">
+                                <div style="height: 500px; width: 400px; position: relative;">
+                                    <img id="mde-image-poster" src="https://via.placeholder.com/500x400" alt="poster"
+                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                    <label id="mde-btn-upload-poster" class="btn btn-danger d-block btn-sm" for="mde-poster"
+                                        style="position: absolute; bottom: 0; right: 0; margin-bottom: 0;">Thêm poster</label>
+                                    <input id="mde-poster" class="form-control-file" type="file" name="mde-poster" required hidden>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="mde-title">Tên phim <span class="text-danger">*</span></label>
+                                <input id="mde-title" class="form-control" type="text" name="mde-title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="mde-description">Nôi dung phim <span class="text-danger">*</span></label>
+                                <textarea id="mde-description" class="form-control" name="mde-description" required rows="5"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="mde-country">Quốc gia <span class="text-danger">*</span></label>
+                                    <select id="mde-country" class="form-control" name="mde-country">
+                                        <option value="Mỹ">Mỹ</option>
+                                        <option value="Trung Quốc">Trung Quốc</option>
+                                        <option value="Hàn Quốc">Hàn Quốc</option>
+                                        <option value="Việt Nam">Việt Nam</option>
+                                        <option value="Nhật Bản">Nhật Bản</option>
+                                        <option value="other">Khác</option>
+                                    </select>
+                                    <input type="text" name="mde-country-input" id="mde-country-input" class="form-control mt-3"
+                                        placeholder="Tên nước">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="mde-premiere_date">Ngày khởi chiếu <span class="text-danger">*</span></label>
+                                    <input id="mde-premiere_date" class="form-control" type="text" name="mde-premiere_date" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 form-group">
+                                    <label for="mde-director">Đạo diễn <span class="text-danger">*</span></label>
+                                    <input id="mde-director" class="form-control" type="text" name="mde-director" required>
+            
+                                </div>
+                                <div class="col-6 form-group">
+                                    <label for="mde-language">Ngôn ngữ <span class="text-danger">*</span></label>
+                                    <select name="mde-language" id="mde-language" class="form-control">
+                                        <option value="Vietsub">Vietsub</option>
+                                        <option value="Thuyết minh">Thuyết minh</option>
+                                        <option value="Vietsub & Thuyết minh">Vietsub & Thuyết minh</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" aria-required="true">
+                                <label for="mde-category">Thể loại <span class="text-danger">*</span></label>
+                                <div>
+                                    <fieldset aria-required="true" id="mde-category">
+                                        <% categoryData.map(category => { %>
+                                        <label>
+                                            <input type="checkbox" class="category-checkbox" name="mde-category-checkbox" value="<%= category.name %>" >
+                                            <%= category.name %>
+                                        </label>
+                                        <% }) %>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="form-group" style="position: relative;">
+                                <label for="mde-trailer">Trailer <span class="text-danger">*</span>
+                                    <span class="font-italic">(Chỉ điền link youtube)</span>
+                                </label>
+                                
+                                <input id="mde-trailer" class="form-control" type="url" name="mde-trailer" required>
+                                <button id="mde-btn-trailer" class="btn btn-sm btn-danger mt-3">Xem trailer</button>
+                            </div>
+                            
+                            <div class="form-group message-error">
+                                <ul>
+                                    <li>Lỗi số 1</li>
+                                    <li>Lỗi số 2</li>
+                                    <li>Lỗi số 3</li>
+                                </ul>
+                            </div>
+                            <div class="modal-footer mt-5">
+                                <button id="btn-save-edit-film" class="btn btn-primary">Thêm</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-body loader-wrapper" style="display: none;">
+                        <div class="loader mb-5"></div>
+                        <span>Đang tải lên . . .</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trailer -->
+    <div id="trailer-modal" style="display: none;">
+        <iframe width="560" height="315" src="" frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+            class="yt_player_iframe"></iframe>
+    </div>
+
+    <script>
+        $(function () {
+            $("#edit-film-modal #mde-premiere_date").daterangepicker({
+                singleDatePicker: true
+            });
+            $("#add-film-modal #premiere_date").daterangepicker({
+                singleDatePicker: true
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(() => {
+            const fileInput = $('#poster');
+            const poster = $('#image-poster');
+            fileInput.click();
+            fileInput.on('change', function () {
+                readURL(document.getElementById('poster'), poster);
+            })
+        })
+
+        function readURL(input, target) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                target.attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+
+        }
+    </script>
+    <!-- ADD FILM -->
+    <script>
+        $(document).ready(() => {
+            $('#btn-save-new-film').on('click', function (e) {
+                e.preventDefault();
+                const array = $('input[name="category-checkbox"]');
+                const category = [];
+                for (let i = 0; i < array.length; i++)
+                    if (array[i].checked)
+                        category.push(array[i].value);
+                
+                
+                const title = $('input[name="title"]').val(),
+                      description = $('textarea[name="description"]').val(),
+                      country = $('select[name="country"]').val() === 'other' ? $('input[name="country-input"]').val() : $('select[name="country"]').val(),
+                      premiere_date = $('input[name="premiere_date"]').val(),
+                      director = $('input[name="director"]').val(),
+                      language = $('select[name="language"]').val(),
+                      poster = document.getElementById('poster').files[0];
+
+                let   trailer = $('input[name="trailer"]').val();
+                
+                const errors = validateForm({
+                    title,
+                    description,
+                    country,
+                    premiere_date,
+                    director,
+                    language,
+                    trailer,
+                    category,
+                    poster
+                })
+                if (errors.length) {
+                    $('.message-error').css('display', 'flex');
+                    $('.message-error ul').remove();
+                    $('.message-error').append('<ul> </ul>');
+                    errors.map(err => {
+                        $('.message-error ul').append(
+                            `<li>${err}</li>`
+                        )
+                    })
+                    return false;
+                }
+                
+                if (trailer.length > 1)
+                    trailer = trailer.split('watch?v=')[1].split('&')[0];
+                
+                
+                const formBody = new FormData();
+
+                formBody.append('title', title);
+                formBody.append('description', description);
+                formBody.append('country', country);
+                formBody.append('premiere_date', premiere_date);
+                formBody.append('director', director);
+                formBody.append('language', language);
+                formBody.append('trailer', trailer);
+                formBody.append('file', poster);
+                formBody.append('status', 'Chưa chiếu');
+                formBody.append('categories', category);
+                
+                
+                fetch('/film/new', {
+                    method: 'POST',
+                    body: formBody
+                })
+                .then(res => {
+                    
+                    $('.loader-wrapper span').text('Thành công');
+                    $('.loader').addClass('loaded-successful');
+                    setTimeout(
+                        () => location.reload(),
+                        1000
+                    )
+                });
+                //show loader
+                $('.modal-body-content').css('display', 'none');
+                $('.loader-wrapper').css('display', 'flex');
+
+            })
+
+            $('select[name="country"], select[name="mde-country"]').on('change', function() {
+                if ($(this).val() === 'other'){
+                    $('#country-input').css('display', 'block');
+                    $('#mde-country-input').css('display', 'block');
+                }
+                    
+                else {
+                    $('#country-input').css('display', 'none');
+                    $('#mde-country-input').css('display', 'none');
+                }
+                
+            })
+
+
+            //validate
+            const validateForm = (form) => {
+                const err = [];
+                const tempErr = [];
+                
+                for (attr in form){
+                    if (!form[attr] || !form[attr].length)
+                         tempErr.push(attr);
+                }
+                if (form.poster)
+                    tempErr.splice(tempErr.length - 1, 1);
+                err[0] = tempErr;
+
+                //check premiere_date
+                const date = new Date(form.premiere_date);
+                if (date <= Date.now())
+                    err[1] = 'Ngày khởi chiếu phải lớn hơn ngày hiện tại';
+                
+                if (form.trailer.length && ( form.trailer.indexOf('youtube') === -1 || form.trailer.indexOf('watch?v=') === -1)) {
+                    const index = err[0].indexOf('trailer');
+                    if (index !== -1)
+                        err[0].splice(index, 1);
+                    err[2] = 'Link trailer không đúng';
+                }
+
+                //
+                
+                if (Array.isArray(err[0]) && err[0].length){
+                    let temp = 'Không được bỏ trống';
+                    err[0].map(errItem => temp = temp + ' ' + errItem + ',');
+                    err[0] = temp.substr(0, temp.length - 1);
+                    
+                }
+                
+                if (err.length && err[0].length)
+                    return err;    
+                return []
+            }
+        })
+
+
+    </script>
+    <!-- EDIT FILM -->
+    <script>
+        $(document).ready(() => {
+            $('.main-content table tbody tr').on('click', function () {
+                
+            })
+
+
+            $('.btn-edit').on('click', function(e) {
+                e.stopPropagation();
+                
+                const id = $(this).parent().attr('id');
+
+                //get info
+                const poster = $(`#${id}-poster`).attr('src'),
+                      title = $(`#${id}-title`).text().trim(),
+                      description = $(`#${id}-description`).text().trim(),
+                      country = $(`#${id}-country`).text().trim(),
+                      premiere_date = $(`#${id}-premiere_date`).text().trim(),
+                      director = $(`#${id}-director`).text().trim(),
+                      language = $(`#${id}-language`).text().trim(),
+                      trailer = $(`#${id}-trailer`).text().trim(),
+
+                      //get category
+                      category = [],
+                      tempCategory = $(`#${id}-category p`);
+                      for (let i = 0; i < tempCategory.length; i++) {
+                        category.push(tempCategory[i].innerText.trim());
+                      }
+                
+                
+                //set info for edit modal
+                $('#edit-film-modal #mde-image-poster').attr('src', poster);
+                $('#edit-film-modal input[name="mde-title"]').val(title);
+                $('#edit-film-modal textarea[name="mde-description"]').val(description);
+
+                $('#edit-film-modal select[name="mde-country"]').val(country);
+                if (!$('#edit-film-modal select[name="mde-country"]').val()) {
+                    $('#edit-film-modal select[name="mde-country"]').val('other');
+                    $('#edit-film-modal input[name="mde-country-input"]').css('display', 'block');
+                    $('#edit-film-modal input[name="mde-country-input"]').val(country);
+                }
+
+                //$('#edit-film-modal input[name="premiere_date"]').val( formatDate(premiere_date) );
+                $('#edit-film-modal input[name="mde-premiere_date"]').data('daterangepicker').setStartDate( formatDate(premiere_date) );
+                $('#edit-film-modal input[name="mde-premiere_date"]').data('daterangepicker').setEndDate( formatDate(premiere_date) );
+                $('#edit-film-modal input[name="mde-director"]').val(director);
+                $('#edit-film-modal select[name="mde-language"]').val(language);
+                $('#edit-film-modal input[name="mde-trailer"]').val(`https://www.youtube.com/watch?v=${trailer}`);
+                $('.yt_player_iframe').attr('src', `https://www.youtube.com/embed/${trailer}`);
+
+                const categoryInput = $('fieldset#mde-category input');
+                for (let i = 0; i < categoryInput.length; i++) {
+                    if (category.indexOf(categoryInput[i].value) !== -1)
+                        categoryInput[i].checked = true;
+                }
+
+                //show modal
+                $('#edit-film-modal').modal();
+            })
+
+            //show trailer
+            $('#mde-btn-trailer').on('click', () => {
+                $('#trailer-modal').css('display', 'flex');
+            })
+
+            //close trailer
+            $('#trailer-modal').on('click', (e) => {
+                e.stopPropagation();
+                $('#trailer-modal').css('display', 'none');
+                $('.yt_player_iframe').attr('src', '');
+            })
+
+
+            //format: MM/DD/YYYY
+            const formatDate = (dateString) => {
+                const date = new Date(dateString);
+                const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate(),
+                      month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
+                      year = date.getFullYear();
+                return `${month}/${day}/${year}`;
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
