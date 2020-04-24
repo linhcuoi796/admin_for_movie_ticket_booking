@@ -1,5 +1,5 @@
 # Thông tin project
-- **Link xem trực tuyến:** [https://tkpm-bt1-796.herokuapp.com](https://tkpm-bt1-796.herokuapp.com)
+- **Link xem trực tuyến:** [https://tkpm-bt1-796.herokuapp.com/film](https://tkpm-bt1-796.herokuapp.com/film)
 - **Cấu trúc thư mục:**
 app/
     &nbsp;&nbsp;&nbsp;bin/
