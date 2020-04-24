@@ -366,12 +366,15 @@
     </script>
     <script>
         $(document).ready(() => {
-            const fileInput = $('#poster');
-            const poster = $('#image-poster');
-            fileInput.click();
-            fileInput.on('change', function () {
-                readURL(document.getElementById('poster'), poster);
-            })
+            
+                const fileInput = $('#poster');
+                const poster = $('#image-poster');
+                
+                fileInput.on('change', function () {
+                    readURL(document.getElementById('poster'), poster);
+                })
+            
+            
         })
 
         function readURL(input, target) {
